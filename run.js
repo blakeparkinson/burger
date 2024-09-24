@@ -20,7 +20,7 @@ const { firefox } = require('playwright');
 
     try {
       // Navigate to the specified URL
-      await page.goto('https://www.nola.com/entertainment_life/eat-drink/vote-for-best-burger-in-new-orleans-louisiana/article_ff0ee944-0d66-11ef-8ec2-379be548083f.html');
+      await page.goto('https://www.nola.com/entertainment_life/eat-drink/new-orleans-fried-chicken-bracket/article_f48e7a82-6ebb-11ef-a454-cfbf790c9887.html');
       // Wait for the input field to appear on the page
     await page.waitForSelector('input[name="Enter response"]');
 
@@ -44,16 +44,14 @@ const { firefox } = require('playwright');
         console.error('Submit button not found.');
       }
 
-      // Wait for the page to transition after submitting
-    //   await page.waitForLoadState('networkidle');
 
-      // Wait for the specific div with the text "Atomic Burger, Metairie" to appear and click it
-      const atomicBurgerLocator = page.locator('text=Atomic Burger, Metairie');
-      await atomicBurgerLocator.waitFor(); // Wait for the element to appear
-      await atomicBurgerLocator.click();
+      const htmlLocator = page.getByText('Whiskey, New Orleans');
+      console.log(htmlLocator)
+      await htmlLocator.waitFor(); // Wait for the element to appear
+      await htmlLocator.click();
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      console.log('Clicked on "Atomic Burger, Metairie".');
+      console.log(locatorText + ' clicked.');
       votes++;
     } catch (error) {
       console.error('An error occurred:', error);
@@ -76,7 +74,4 @@ const { firefox } = require('playwright');
       await new Promise(resolve => setTimeout(resolve, 1000)); // 1 seconds
     }
   }
-
-  // Close the browser after the loop (this will never be reached in the infinite loop)
-  // await browser.close();
 })();
